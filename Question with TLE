@@ -1,0 +1,39 @@
+//questions is solved using recursion but it contains TLE
+
+//https://leetcode.com/problems/house-robber/description/
+
+class Solution {
+    public int rob(int[] nums) {
+        return homeRob(nums,0);
+    }
+         private int homeRob(int[] nums,int idx){
+                if(idx>=nums.length){
+                    return 0;
+                }
+        int option1=nums[idx]+homeRob(nums,idx+2);
+        int option2=0+homeRob(nums,idx+1);
+        return Math.max(option1,option2);
+
+    }
+}
+
+//https://www.geeksforgeeks.org/problems/cutted-segments1642/1
+//Question is based on Maximize the cut in line Segment
+
+
+class Solution {
+    
+    public int maximizeCuts(int n, int x, int y, int z) {
+        if(n==0) return 0;
+        if(n<0){
+            return Integer.MIN_VALUE;
+        }
+        
+        int option1=1+maximizeCuts(n-x,x,y,z);
+        int option2=1+maximizeCuts(n-y,x,y,z);
+        int option3=1+maximizeCuts(n-z,x,y,z);
+        int max=Math.max(option1,option2);
+        int result=Math.max(max,option3);
+         return result;
+    }
+}
