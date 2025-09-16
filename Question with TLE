@@ -37,3 +37,41 @@ class Solution {
          return result;
     }
 }
+
+
+//https://leetcode.com/problems/partition-equal-subset-sum/
+
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int n = nums.length;
+
+        // Step 1: Calculate total sum
+        int totalSum = 0;
+        for (int num : nums) {
+            totalSum += num;
+        }
+
+        // Step 2: If total sum is odd, can't split equally
+        if (totalSum % 2 != 0) {
+            return false;
+        }
+
+        // Step 3: Check if a subset with sum = totalSum/2 exists
+        return equalPartition(nums, n, totalSum / 2);
+    }
+
+    private boolean equalPartition(int[] arr, int N, int targetSum) {
+        // Base cases
+        if (targetSum == 0) return true;
+        if (N == 0) return false;
+
+        // If current element is greater than target, skip it
+        if (arr[N - 1] > targetSum) {
+            return equalPartition(arr, N - 1, targetSum);
+        }
+
+        // Either include current element or exclude it
+        return equalPartition(arr, N - 1, targetSum)
+            || equalPartition(arr, N - 1, targetSum - arr[N - 1]);
+    }
+}
