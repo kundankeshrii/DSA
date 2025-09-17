@@ -1,0 +1,64 @@
+//Q11.Leetcode
+//https://leetcode.com/problems/container-with-most-water/description/
+//Using Two Pointer Approach
+class Solution {
+    public int maxArea(int[] height) {
+        int i=0;
+        int j=height.length-1;
+        int maxWater=0;
+        while(i<j){
+            int width=j-i;
+            int heightt=Math.min(height[i],height[j]);
+            int area=width*heightt;
+            maxWater=Math.max(maxWater,area);
+            if(height[i]<height[j]){
+                i++;
+            }else{
+                j--;
+            }
+        }
+        return maxWater;
+    }
+}
+
+//https://leetcode.com/problems/next-permutation/description/
+//leetcode Q.31
+//solved using Two pointer approach
+class Solution {
+         private void swap(int[] arr,int a,int b){
+          int temp=arr[a];
+          arr[a]=arr[b];
+          arr[b]=temp;
+     }
+     private void reverse(int[] arr,int start,int end){
+        
+        while(start<end){
+            swap(arr,start,end);
+            start++;end--;
+        }
+     }
+    public void nextPermutation(int[] nums) {
+        int idx=-1;
+        int n=nums.length;
+        for(int i=n-2;i>=0;i--){
+            if(nums[i]<nums[i+1]){
+                idx=i;
+                break;
+                                }
+            }
+            if(idx==-1){
+                reverse(nums,0,n-1);
+                System.out.println(Arrays.toString(nums));
+                return;
+            }
+            for(int j=n-1;j>idx;j--){
+                if(nums[j]>nums[idx]){
+                    swap(nums,j,idx);
+                    break;
+                }
+            }
+            reverse(nums,idx+1,n-1);
+            System.out.println(Arrays.toString(nums));
+        }
+    
+}
