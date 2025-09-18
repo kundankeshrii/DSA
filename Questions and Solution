@@ -62,3 +62,64 @@ class Solution {
         }
     
 }
+
+
+//https://leetcode.com/problems/combination-sum/
+
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        return CS(candidates,candidates.length-1,target);
+    }
+    private List<List<Integer>> CS(int[] arr,int n,int target){
+        List<List<Integer>> result=new ArrayList<>();
+        
+        if(target==0) {
+            result.add(new ArrayList<>());
+            return result;
+        }
+        if(target<0 || n<0 ) return result;
+        //exclude
+         
+        List<List<Integer>> exclude= CS(arr,n-1,target);
+        //include
+         List<List<Integer>> include= CS(arr,n,target-arr[n]);
+         for(List<Integer> list: include){
+            list.add(0,arr[n]);
+            result.add(list);
+         }
+         result.addAll(exclude);
+         return result;
+
+         }
+    
+}
+
+
+//https://leetcode.com/problems/subsets/description/
+
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        return powerSet(nums,0,new ArrayList<>());
+    }
+   
+    private List<List<Integer>> powerSet(int[] nums,int idx,List<Integer> curr ){
+        if(idx==nums.length){
+             List<List<Integer>> list=new ArrayList<>();
+             list.add(new ArrayList<>(curr));
+             return list;
+
+        }//exclude
+         List<List<Integer>> exclude=powerSet(nums,idx+1,curr);
+         //include
+         curr.add(nums[idx]);
+         List<List<Integer>> include=powerSet(nums,idx+1,curr);
+         curr.remove(curr.size()-1);
+
+         //merge result
+         exclude.addAll(include);
+         return exclude;
+
+
+    }
+
+}
