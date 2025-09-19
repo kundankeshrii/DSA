@@ -123,3 +123,43 @@ class Solution {
     }
 
 }
+
+
+//https://leetcode.com/problems/combination-sum-ii/description/
+
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates); 
+        return CS(candidates, candidates.length - 1, target);
+    }
+
+    private List<List<Integer>> CS(int[] arr, int idx, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        if (target == 0) {
+            result.add(new ArrayList<>());  
+            return result;
+        }
+        if (target < 0 || idx < 0) {
+            return result;  
+        }
+
+        //Exclude 
+        int newIdx = idx - 1;
+        // skip  
+        while (newIdx >= 0 && arr[newIdx] == arr[idx]) {
+            newIdx--;
+        }
+        List<List<Integer>> exclude = CS(arr, newIdx, target);
+
+        // Include 
+        List<List<Integer>> include = CS(arr, idx - 1, target - arr[idx]);
+        for (List<Integer> list : include) {
+            list.add(0, arr[idx]);
+            result.add(list);
+        }
+
+        result.addAll(exclude);
+        return result;
+    }
+}
