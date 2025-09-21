@@ -118,3 +118,28 @@ class Solution {
          
     }
 }
+
+//https://leetcode.com/problems/edit-distance/description/
+class Solution {
+    public int minDistance(String word1, String word2) {
+        int m=word1.length();
+        int n=word2.length();
+        return MD(word1,word2,m,n);
+    }
+    private int MD(String str1,String str2,int m,int n){
+        if(m==0 )return n;
+        if(n==0) return m;
+        if(str1.charAt(m-1)==str2.charAt(n-1)){
+            return MD(str1,str2,m-1,n-1);
+
+        }else{
+            return 1 + Math.min(
+            MD(str1, str2, m, n - 1),     
+            Math.min(
+                MD(str1, str2, m - 1, n), 
+                MD(str1, str2, m - 1, n - 1)
+            )
+            );
+    }
+    }
+}
