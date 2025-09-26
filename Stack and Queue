@@ -1,1 +1,18 @@
-
+//https://www.geeksforgeeks.org/problems/sort-a-stack/1
+class Solution {
+     public void sortStack(Stack<Integer>st){
+        if(st.isEmpty()) return;
+        int element=st.pop();
+        sortStack(st);
+        insertRight(st,element);
+    }
+    private void insertRight(Stack<Integer> st,int element){
+        if(st.isEmpty() || element>=st.peek()){
+            st.push(element);
+            return;
+        }
+            int top=st.pop();
+            insertRight(st, element);
+            st.push(top);
+        }
+}
