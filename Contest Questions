@@ -11,3 +11,24 @@ class Solution {
         return result;
     }
 }
+
+https://leetcode.com/contest/weekly-contest-468/problems/maximum-total-subarray-value-i/description/
+//Q2. Maximum Total Subarray Value I
+class Solution {
+    public long maxTotalValue(int[] nums, int k) {
+        long max=nums[0];
+        long min=nums[0];
+        long result=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]>max){
+                max=nums[i];
+            }
+            if((min>nums[i])){
+                min=nums[i];
+            }
+        }
+        result=(max-min)*k;   //better practise to type cast k also i.e (long)k
+        return result;
+    }
+}
+
