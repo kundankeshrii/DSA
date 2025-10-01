@@ -111,3 +111,24 @@ class Solution {
     }
 }
 
+//Node at a given index in linked list
+https://www.geeksforgeeks.org/problems/node-at-a-given-index-in-linked-list/1
+
+class Solution {
+    public int GetNth(Node head, int index) {
+        if(head==null){
+            return -1;
+        }
+        Node temp=head;
+        int cnt=0;
+        while(temp!=null){
+            cnt++;
+            if(cnt==index){
+                return temp.data;
+            }
+            temp=temp.next;
+        }
+        return -1;
+        
+    }
+}
