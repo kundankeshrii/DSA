@@ -67,6 +67,8 @@ class Solution {
 
 
 //Linked List Insertion At End
+https://www.geeksforgeeks.org/problems/linked-list-insertion-1587115620/1
+
 class Solution {
     public Node insertAtEnd(Node head, int x) {
         if(head==null){
@@ -81,3 +83,31 @@ class Solution {
         return head;
     }
 }
+
+//Delete in a Singly Linked List
+https://www.geeksforgeeks.org/problems/delete-a-node-in-single-linked-list/1
+
+class Solution {
+    Node deleteNode(Node head, int x) {
+         if(head==null){
+             return head;
+         }
+         if(x==1){
+         return head.next;
+         }
+         int cnt=0;
+         Node temp=head;
+         Node prev=null;
+         while(temp!=null){
+             cnt++;
+             if(cnt==x){
+                 prev.next=prev.next.next;
+             }
+             prev=temp;
+             temp=temp.next;
+         }
+         return head;
+        
+    }
+}
+
