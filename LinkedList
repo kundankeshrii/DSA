@@ -132,3 +132,24 @@ class Solution {
         
     }
 }
+
+//Kth from End of Linked List
+https://www.geeksforgeeks.org/problems/nth-node-from-end-of-linked-list/1
+
+class Solution {
+    int getKthFromLast(Node head, int k) {
+        if(head==null){
+            return -1;
+        }
+         Node temp=head;
+         int cnt=-1;
+         ArrayList<Integer>list=new ArrayList<>();
+         while(temp!=null){
+             cnt++;
+             list.add(temp.data);
+         temp=temp.next;
+         }
+         if(k<=cnt+1) return list.get(cnt-(k-1));
+         return -1;
+        
+    }
