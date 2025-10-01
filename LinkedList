@@ -153,3 +153,30 @@ class Solution {
          return -1;
         
     }
+
+//Remove every k'th node
+https://www.geeksforgeeks.org/problems/remove-every-kth-node/1
+
+class Solution {
+    
+    Node deleteK(Node head, int k) {
+         if(head==null){
+             return head;
+         }
+         if(k==1){
+             return head.next;
+         }
+         int cnt=0;
+         Node prev=null;
+         Node temp=head;
+         while(temp!=null){
+             cnt++;
+             if(cnt%k==0){
+                 prev.next=prev.next.next;
+             }
+             prev=temp;
+             temp=temp.next;
+         }
+        return head;
+    }
+}
