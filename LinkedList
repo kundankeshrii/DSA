@@ -180,3 +180,27 @@ class Solution {
         return head;
     }
 }
+
+//Middle of a Linked List
+https://www.geeksforgeeks.org/problems/finding-middle-element-in-a-linked-list/1
+
+class Solution {
+    int getMiddle(Node head) {
+         int result=0;;
+         Node temp=head;
+        int cnt=0;
+        while(temp!=null){
+            cnt++;
+            temp=temp.next;
+        }
+         int mid=0; temp=head;
+        while(temp!=null){
+            mid++;
+            if(mid==cnt/2){
+                result=temp.next.data;
+            }
+            temp=temp.next;
+        }
+    return result;
+    }
+}
