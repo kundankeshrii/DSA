@@ -403,3 +403,42 @@ class Solution {
         return head;
         }
     }
+
+//Delete the Middle Node of a Linked List
+https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/description/
+class Solution {
+    public ListNode deleteMiddle(ListNode head) {
+        int cnt=-1;
+        int mid=0;
+        if(head==null || head.next==null){
+            return null;
+        }
+        ListNode temp=head;
+        while(temp!=null){
+            cnt++;
+            temp=temp.next;
+        } temp=head;
+            if(cnt%2==0){
+                while(temp!=null){
+                    mid++;
+                    if(mid==cnt/2){
+                    temp.next=temp.next.next;
+                        break;
+                }
+                temp=temp.next;
+            }
+            }
+            else{
+                while(temp!=null){
+                    mid++;
+                    if(mid==(cnt+1)/2){
+                    temp.next=temp.next.next;
+                        break;
+                }
+                temp=temp.next;
+            }
+
+        }
+    return head;
+    }
+}
