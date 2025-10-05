@@ -460,3 +460,26 @@ class Solution {
      return head;
     }
 }
+
+//Intersection of Two Linked Lists
+https://leetcode.com/problems/intersection-of-two-linked-lists/description/
+//M-1 :- Using HashMap
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        Map<ListNode,Integer> mpp=new HashMap<>();
+            ListNode temp1=headA;
+            while(temp1!=null){
+                mpp.put(temp1,1);
+                temp1=temp1.next;
+            }
+            ListNode temp2=headB;
+            while(temp2!=null){
+                if(mpp.containsKey(temp2)){
+                    return temp2;
+                }
+                temp2=temp2.next;
+            }
+            return null;
+    }
+}
+
