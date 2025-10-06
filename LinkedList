@@ -498,3 +498,35 @@ public class Solution {
         }
         return temp1;
 
+//Linked List Cycle II
+https://leetcode.com/problems/linked-list-cycle-ii/description/
+//M-1
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        //using HashMap
+        Map<ListNode,Integer>mpp=new HashMap<>();
+        ListNode temp=head;
+        while(temp!=null){
+            if (mpp.containsKey(temp)) return temp;
+          mpp.put(temp,1);
+          temp=temp.next;
+        }
+        return null;
+}
+}
+//M-2
+ListNode fast=head;
+        ListNode slow=head;
+        while(fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if(fast==slow){
+                slow=head;
+                while(slow!=fast){
+                    slow=slow.next;
+                    fast=fast.next;
+                }
+            return slow;
+            }
+        }
+        return null;
