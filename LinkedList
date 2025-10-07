@@ -592,4 +592,25 @@ class Solution {
         return dNode.next;
     }
 }
+//M-3 most optimal solution 
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        PriorityQueue<ListNode>pq=new PriorityQueue<>((a,b)->a.val-b.val);
+        for(int i=0;i<lists.length;i++){
+          if(lists[i]!=null) pq.add(lists[i]);
+        }
+        ListNode dNode=new ListNode(0);
+        ListNode temp=dNode;
+        while(!pq.isEmpty()){
+            ListNode p=pq.poll();
+            temp.next=p;
+            temp=p;
+        
+        if(p.next!=null){
+            pq.add(p.next);
+            }
+        }
+        return dNode.next;
+    }
+}
 
