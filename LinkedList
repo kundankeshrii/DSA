@@ -614,3 +614,49 @@ class Solution {
     }
 }
 
+//1472. Design Browser History
+https://leetcode.com/problems/design-browser-history/description/
+class Node {
+    String data;
+    Node back;
+    Node next;
+    Node front;
+
+    Node(String data) {
+        this.data = data;
+    }
+}
+class BrowserHistory {
+       private Node current;
+    public BrowserHistory(String homepage) {
+        current=new Node (homepage);
+    }
+    
+    public void visit(String url) {
+        current.next = null;
+        current.front = null;
+       Node newNode=new Node(url);
+        newNode.back = current;
+       current.next=newNode;
+       current.front=newNode;
+       current=newNode;
+    }
+    public String back(int steps) {
+        while(steps!=0){
+            if(current.back!=null) current=current.back;
+            else break;
+            steps--;
+        }
+        return current.data;
+    }
+    
+    public String forward(int steps) {
+        while(steps!=0){
+            if(current.front!=null) current=current.front;
+            else break;
+            steps--;
+        }
+        return current.data;
+    }
+}
+
