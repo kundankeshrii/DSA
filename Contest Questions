@@ -75,3 +75,24 @@ class Solution {
             }else return 0;
     }
 }
+//Q1. Equal Score Substrings
+https://leetcode.com/contest/biweekly-contest-167/problems/equal-score-substrings/description/
+class Solution {
+    public boolean scoreBalance(String s) {
+        double sum=0;
+        List<Integer>list=new ArrayList<>();
+        for(int i=0;i<s.length();i++){
+            int num=s.charAt(i)-'a'+1;
+            sum+=num;
+            list.add(num);
+        }
+            int CurrSum=0;
+            for(int i=0;i<list.size();i++){
+                CurrSum+=list.get(i);
+                if(CurrSum==sum/2){
+                    return true;
+                }
+            }
+        return false;
+        }
+}
