@@ -96,3 +96,27 @@ class Solution {
         return false;
         }
 }
+//Longest Fibonacci Subarray
+https://leetcode.com/contest/biweekly-contest-167/problems/longest-fibonacci-subarray/description/
+class Solution {
+    public int longestSubarray(int[] nums) {
+        int Mcnt=2;
+        int i=0;int j=i+1;int k=i+2;
+        if(nums.length==1 || nums.length==2){
+            return Mcnt;
+        }
+            int cnt=2;
+         while(k<nums.length){
+             if(nums[i]+nums[j]==nums[k]){
+                 cnt++;
+                 if(Mcnt<cnt){
+                 Mcnt=cnt;
+             }
+             }else{
+                 cnt=2;
+             }
+             i++;j++;k++;
+        }
+        return Mcnt;
+    }
+}
