@@ -2,7 +2,7 @@
 //All questions will be Solved soon Through Dynamic Programming (DP)
 
 //https://leetcode.com/problems/house-robber/description/
-
+//M-1
 class Solution {
     public int rob(int[] nums) {
         return homeRob(nums,0);
