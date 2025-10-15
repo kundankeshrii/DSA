@@ -17,6 +17,7 @@ class Solution {
 
     }
 }
+//M-2 via Dynamic programming 
 
 //https://www.geeksforgeeks.org/problems/cutted-segments1642/1
 //Question is based on Maximize the cut in line Segment
