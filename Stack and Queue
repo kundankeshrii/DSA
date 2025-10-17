@@ -206,3 +206,24 @@ class Solution {
         return nge;
     }
 }
+//M-2
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        int[] nge=new int[nums.length];
+        int N=nums.length;
+        for(int i=0;i<nums.length;i++){
+            nge[i]=-1;
+        }
+        for(int i=0;i<N;i++){
+            for(int j=i+1;j<i+N;j++){
+                int index=j%N;
+                if(nums[index]>nums[i]){
+                    nge[i]=nums[index];
+                    break;
+                }
+            }
+
+            }
+            return nge;
+    }
+}
