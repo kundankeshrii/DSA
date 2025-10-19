@@ -186,6 +186,51 @@ class Solution {
         return (int)sum;
     }
 }
+//M-2
+class Solution {
+    public int sumSubarrayMins(int[] arr) {
+        int n = arr.length;
+        long total = 0;
+        int mod = (int)1e9 + 7;
+        int[] nse=findNSE(arr);
+        int[] psee=findPSEE(arr);
+       for(int i=0;i<arr.length;i++){
+        long left= i-psee[i];
+        long right= nse[i]-i;
+        long freq=right*left*1L;
+        long val=(int)((freq*arr[i])%mod);
+        total=(total +val)%mod;
+
+       }
+       return (int)total;
+    }
+    private int[] findNSE(int[] arr){
+        int n=arr.length;
+        int[] nse=new int[n];
+        Stack<Integer> st=new Stack<>();
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && arr[st.peek()]>=arr[i]){
+                st.pop();
+            }
+                nse[i]=!st.isEmpty() ? st.peek() : n;
+                st.push(i);
+        }
+        return nse;
+    }
+    private int[] findPSEE(int[] arr){
+        int[] psee=new int[arr.length];
+        Stack<Integer> st=new Stack<>();
+        for(int i=0;i<arr.length;i++){
+            while(!st.isEmpty() && arr[st.peek()]>arr[i]){
+                st.pop();
+            }
+                psee[i]=!st.isEmpty() ? st.peek():-1;
+                st.push(i);
+        }
+        return psee;
+    }
+}
+
 
 //503. Next Greater Element II
 //M-1
