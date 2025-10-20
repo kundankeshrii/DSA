@@ -167,6 +167,89 @@ class Solution {
         return sum;
     }
 }
+//M-2
+class Solution {
+    public long subArrayRanges(int[] nums) {
+        return SOSMax(nums)-SOSMin(nums);
+    }
+    private long SOSMin(int[] arr){
+        int n=arr.length;
+        long total=0;
+        int[] nse=findNSE(arr);
+        int[] psee=findPSEE(arr);
+        for(int i=0;i<n;i++){
+            long left=i-psee[i];
+            long right=nse[i]-i;
+            total=total+(left*right*1L*arr[i]);
+        }
+        return total;
+    }
+    private int[] findNSE(int[] arr){
+        int n=arr.length;
+        Stack<Integer> st=new Stack<>();
+        int[] NSE=new int[n];
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && arr[st.peek()]>=arr[i]){
+                st.pop();
+            }
+            NSE[i]=!st.isEmpty() ? st.peek() : n;
+            st.push(i);
+        }
+        return NSE;
+    }
+    private int[] findPSEE(int[] arr){
+        int n=arr.length;
+        int[] PSEE=new int[n];
+        Stack<Integer>st=new Stack<>();
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && arr[st.peek()]> arr[i]){
+                st.pop();
+            }
+            PSEE[i]=!st.isEmpty()? st.peek():-1;
+            st.push(i);
+        }
+        return PSEE;
+    }
+    private long SOSMax(int[] arr){
+        long total=0;
+        int n=arr.length;
+        int[] nge=findNGE(arr);
+        int[] pgee=findPGEE(arr);
+        for(int i=0;i<n;i++){
+            long left=i-pgee[i];
+            long right=nge[i]-i;
+            total=total+(left*right*1L*arr[i]);
+
+        }
+        return total;
+    }
+    private int[] findNGE(int[] arr){
+        int n=arr.length;
+        Stack<Integer> st=new Stack<>();
+        int[] NGE=new int[n];
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && arr[st.peek()]<=arr[i]){
+                st.pop();
+            }
+            NGE[i]=!st.isEmpty() ? st.peek() : n;
+            st.push(i);
+        }
+        return NGE;
+    }
+    private int[] findPGEE(int[] arr){
+        int n=arr.length;
+        int[] PGEE=new int[n];
+        Stack<Integer>st=new Stack<>();
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && arr[st.peek()]< arr[i]){
+                st.pop();
+            }
+            PGEE[i]=!st.isEmpty()? st.peek():-1;
+            st.push(i);
+        }
+        return PGEE;
+    }
+}
 
 //907. Sum of Subarray Minimums
 //it gives Time Limit Exceeded
