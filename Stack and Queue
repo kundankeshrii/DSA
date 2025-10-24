@@ -492,8 +492,26 @@ class StockSpanner {
     }
 }
 
-/**
- * Your StockSpanner object will be instantiated and called as such:
- * StockSpanner obj = new StockSpanner();
- * int param_1 = obj.next(price);
- */
+//239. Sliding Window Maximum
+https://leetcode.com/problems/sliding-window-maximum/description/
+//Brute force solution
+
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        List<Integer>list=new ArrayList<>();
+        for(int i=0;i<=nums.length-k;i++){
+            int maxi=nums[i];
+            for(int j=i;j<i+k;j++){
+                maxi=Math.max(maxi,nums[j]);
+            }
+                list.add(maxi);
+
+        }
+        int [] arr=new int[list.size()];
+        for(int i=0;i<list.size();i++){
+            arr[i]=list.get(i);
+        }
+        return arr;
+    }
+}
+
