@@ -379,3 +379,29 @@ class Solution {
         return count[0];
     }
 }
+//M-2
+class Solution {
+    private int getHeightLeft(TreeNode root){
+        int cnt=0;
+        while(root!=null){
+            cnt++;
+            root=root.left;
+        }
+        return cnt;
+    }
+    private int getHeightRight(TreeNode root){
+        int cnt=0;
+        while(root!=null){
+            cnt++;
+            root=root.right;
+        }
+        return cnt;
+    }
+    public int countNodes(TreeNode root) {
+        if(root== null) return 0;
+        int left=getHeightLeft(root);
+        int right=getHeightRight(root);
+        if(left==right) return (1<<left)-1;
+        else return countNodes(root.left)+countNodes(root.right)+1;
+    }
+}
