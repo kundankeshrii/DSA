@@ -22,6 +22,28 @@ class Solution {
         return bfs;
     }
 }
+//DFS of graph
+https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1
+class Solution {
+    public ArrayList<Integer> dfs(ArrayList<ArrayList<Integer>> adj) {
+        int V=adj.size();
+        ArrayList<Integer> ls=new ArrayList<>();
+        boolean vis[]=new boolean[V];
+        vis[0]=true;
+        dfs(0,vis,adj,ls);
+        return ls;
+            }
+    private void dfs(int node,boolean[] vis,ArrayList<ArrayList<Integer>> adj,ArrayList<Integer>ls){
+        vis[node]=true;
+        ls.add(node);
+        for(int it:adj.get(node)){
+            if(vis[it]==false){
+                dfs(it,vis,adj,ls);
+            }
+        }
+        
+    }
+}
 
 //547. Number of Provinces
 https://leetcode.com/problems/number-of-provinces/description/
