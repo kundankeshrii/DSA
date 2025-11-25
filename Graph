@@ -200,3 +200,60 @@ class Solution {
             return tm;
     }
 }
+//Distance of nearest cell having 1
+https://www.geeksforgeeks.org/problems/distance-of-nearest-cell-having-1-1587115620/1
+class Pair{
+    int first;
+    int second;
+    int third;
+    public Pair(int f,int s,int t){
+        this.first=f;
+        this.second=s;
+        this.third=t;
+    }
+}
+class Solution {
+    public ArrayList<ArrayList<Integer>> nearest(int[][] grid) {
+        Queue<Pair> q=new LinkedList<>();
+        int n=grid.length;
+        int m=grid[0].length;
+        int[][]dist=new int[n][m];
+        int[][] vis=new int[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1){
+                    q.add(new Pair(i,j,0));
+                    vis[i][j]=1;
+                }else{
+                    vis[i][j]=0;
+                }
+            }
+        }
+        int deltaRow[]={-1,0,1,0};
+        int deltaCol[]={0,1,0,-1};
+        while(!q.isEmpty()){
+            int row=q.peek().first;
+            int col=q.peek().second;
+            int steps=q.peek().third;
+            q.remove();
+            dist[row][col]=steps;
+            for(int i=0;i<4;i++){
+                int nrow=row+deltaRow[i];
+                int ncol=col+deltaCol[i];
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && vis[nrow][ncol]==0){
+                    vis[nrow][ncol]=1;
+                    q.add(new Pair(nrow,ncol,steps+1));
+                }
+            }
+        }
+        ArrayList<ArrayList<Integer>> ans=new ArrayList<>();
+        for(int i = 0; i < n; i++) {
+            ArrayList<Integer> temp = new ArrayList<>();
+            for (int j = 0; j < m; j++) {
+                temp.add(dist[i][j]);   
+            }
+            ans.add(temp);
+        }
+        return ans;
+    }
+}
