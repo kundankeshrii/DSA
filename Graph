@@ -669,7 +669,7 @@ class Solution {
          return topo;
     }
 }
-//207. Course Schedule
+//207. Course Schedule-I
 https://leetcode.com/problems/course-schedule/description/
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
