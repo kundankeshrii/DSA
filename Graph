@@ -753,7 +753,8 @@ class Solution {
                 return new int[]{} ;
     }
 }
-//
+//Alien dictionary
+ https://leetcode.com/problems/alien-dictionary/
 class Solution {
     public String findOrder(String[] words, int N, int K) {
         List<List<Integer>> adj = new ArrayList<>();
@@ -766,32 +767,21 @@ class Solution {
             String str2 = words[i + 1];
 
             int len = Math.min(str1.length(), str2.length());
-            boolean foundDiff = false;
-
-            for(int j = 0; j < len; j++){
-                if(str1.charAt(j) != str2.charAt(j)){
-                    adj.get(str1.charAt(j) - 'a').add(str2.charAt(j) - 'a');
-                    foundDiff = true;
+            for(int ptr = 0; ptr < len; ptr++){
+                if(str1.charAt(ptr) != str2.charAt(ptr)){
+                    adj.get(str1.charAt(ptr) - 'a').add(str2.charAt(ptr) - 'a');
                     break;
                 }
             }
-
-            // If no difference found + str1 longer => invalid
-            if(!foundDiff && str1.length() > str2.length()){
-                return "";
-            }
         }
-
         List<Integer> topo = topoSort(K, adj);
-        if(topo.size() < K) return ""; // cycle case
-
+        if(topo.size() < K) return "";
         StringBuilder ans = new StringBuilder();
         for(int ch : topo){
             ans.append((char)(ch + 'a'));
         }
         return ans.toString();
     }
-
     private List<Integer> topoSort(int K, List<List<Integer>> adj){
         int[] indegree = new int[K];
         for(int i = 0; i < K; i++){
@@ -799,18 +789,16 @@ class Solution {
                 indegree[it]++;
             }
         }
-
         Queue<Integer> q = new LinkedList<>();
         for(int i = 0; i < K; i++){
             if(indegree[i] == 0){
                 q.add(i);
             }
         }
-
-        List<Integer> res = new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
         while(!q.isEmpty()){
             int node = q.poll();
-            res.add(node);
+            ans.add(node);
 
             for(int it : adj.get(node)){
                 indegree[it]--;
@@ -819,7 +807,71 @@ class Solution {
                 }
             }
         }
-        return res;
+        return ans;
     }
 }
 
+//Shortest path in Directed Acyclic Graph
+https://www.geeksforgeeks.org/problems/shortest-path-in-undirected-graph/1
+class Pair{
+    int first;
+    int second;
+    public Pair(int v,int wt){
+        this.first=v;
+        this.second=wt;
+    }
+}
+class Solution {
+    public int[] shortestPath(int V, int E, int[][] edges) {
+        ArrayList<ArrayList<Pair>>adj=new ArrayList<>();
+        for(int i=0;i<V;i++){
+            adj.add(new ArrayList<Pair>());
+        }
+        for(int i=0;i<E;i++){
+            int u=edges[i][0];
+            int v=edges[i][1];
+            int wt=edges[i][2];
+            adj.get(u).add(new Pair(v,wt));
+        }
+        int vis[]=new int[V];
+        Stack<Integer>st=new Stack<>();
+        for(int i=0;i<V;i++){
+            if(vis[i]==0){
+                topoSort(i,adj,vis,st);
+            }
+        }
+        int dis[]=new int[V];
+        for(int i=0;i<V;i++) {
+            dis[i]=Integer.MAX_VALUE;
+        }
+        dis[0]=0;
+        while(!st.isEmpty()){
+            int node=st.peek();
+            st.pop();
+            if(dis[node] != Integer.MAX_VALUE) {
+                for(int i=0;i<adj.get(node).size();i++){
+                    int v = adj.get(node).get(i).first;
+                    int wt = adj.get(node).get(i).second;
+                    if(dis[node] + wt < dis[v]){
+                        dis[v] = dis[node] + wt;
+                    }
+                }
+
+            }
+        }
+        for(int i=0;i<V;i++){
+            if(dis[i]==Integer.MAX_VALUE) dis[i]=-1;
+        }
+            return dis;
+    }
+        private void topoSort(int node, ArrayList<ArrayList<Pair>>adj,int vis[],Stack<Integer>st){
+            vis[node]=1;
+            for(int i=0;i<adj.get(node).size();i++){
+                int v=adj.get(node).get(i).first;
+                if(vis[v]==0){
+                    topoSort(v,adj,vis,st);
+                }
+            }
+            st.push(node);
+        }
+}
