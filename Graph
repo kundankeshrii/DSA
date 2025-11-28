@@ -875,3 +875,35 @@ class Solution {
             st.push(node);
         }
 }
+//Shortest Path in Undirected Graph
+https://www.geeksforgeeks.org/problems/shortest-path-in-undirected-graph-having-unit-distance/1
+class Solution {
+    public int[] shortestPath(int V, int[][] edges, int src) {
+        int m=edges.length;
+         ArrayList<ArrayList<Integer>>adj=new ArrayList<>();
+         for(int i=0;i<V;i++){
+             adj.add(new ArrayList<>());
+         }
+         for(int i=0;i<m;i++){
+             adj.get(edges[i][0]).add(edges[i][1]);
+             adj.get(edges[i][1]).add(edges[i][0]);
+         }
+         int dist[]=new int[V];
+         Arrays.fill(dist, -1);
+         dist[src]=0;
+         Queue<Integer>q=new LinkedList<>();
+         q.add(src);
+         while(!q.isEmpty()){
+             int node=q.peek();
+             q.remove();
+             for(int it:adj.get(node)){
+                 if(dist[it]==-1){
+                     dist[it]=1+dist[node];
+                     q.add(it);
+                 }
+             }
+         }
+         return dist;
+    }
+}
+
