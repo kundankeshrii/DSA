@@ -120,4 +120,20 @@ class Solution {
         return Mcnt;
     }
 }
-
+//Maximum Substrings With Distinct Start©leetcode
+https://leetcode.com/contest/weekly-contest-478/problems/maximum-substrings-with-distinct-start/
+class Solution {
+    public int maxDistinct(String s) {
+        boolean[]vis = new boolean[26];
+        int cnt = 0;
+        
+        for(char c:s.toCharArray()) {
+            if(!vis[c-'a']) {
+                vis[c-'a'] = true;
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
+©leetcode
