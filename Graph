@@ -953,7 +953,50 @@ class Solution {
 //Word Ladder-II
 https://leetcode.com/problems/word-ladder-ii/
 //with TLE
-
+class Solution {
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        Set<String>st=new HashSet<>();
+        int len=wordList.size();
+        for(int i=0;i<len;i++) st.add(wordList.get(i));
+        ArrayList<String>ls=new ArrayList<>();
+        ls.add(beginWord);
+        Queue<ArrayList<String>>q=new LinkedList<>();
+        q.add(ls);
+        ArrayList<String> usedOnLevel=new ArrayList<>();
+        usedOnLevel.add(beginWord);
+        List<List<String>>ans=new ArrayList<>();
+        int level=0;
+        while(!q.isEmpty()){
+            List<String>vec=q.peek();
+            q.remove();
+            if(vec.size()>level){
+                level++;
+                for(String it: usedOnLevel){
+                    st.remove(it);
+                }
+            }
+            String word=vec.get(vec.size()-1);
+            if(word.equals(endWord)==true){
+                ans.add(vec);
+            }
+            for(int i=0;i<word.length();i++){
+                for(char ch='a';ch<='z';ch++){
+                    char replacedCharArray[]=word.toCharArray();
+                    replacedCharArray[i]=ch;
+                    String replacedWord=new String(replacedCharArray);
+                    if(st.contains(replacedWord)==true){
+                        vec.add(replacedWord);
+                        ArrayList<String>temp=new ArrayList<>(vec);
+                        q.add(temp);
+                        usedOnLevel.add(replacedWord);
+                        vec.remove(vec.size()-1);
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+}
 //Optimal Solution using CP approach
 class Solution {
     String b;
