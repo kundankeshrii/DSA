@@ -1060,3 +1060,46 @@ class Solution {
         }
     }
 }
+//Dijkstra's Algo. using PriorityQueue
+ https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1
+class Solution {
+    class Pair{
+    int distance;
+    int node;
+    public Pair(int distance,int node){
+        this.distance=distance;
+        this.node=node;
+    }
+}
+    public int[] dijkstra(int V, int[][] edges, int src) {
+        ArrayList<ArrayList<int[]>>adj=new ArrayList<>();
+        for(int i=0;i<V;i++) adj.add(new ArrayList<>());
+        for(int[] e:edges){
+            int u=e[0];
+            int v=e[1];
+            int w=e[2];
+            adj.get(u).add(new int[]{v,w});
+            adj.get(v).add(new int[]{u,w});
+        }
+        int dist[]=new int[V];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        dist[src]=0;
+        PriorityQueue<Pair>pq=new PriorityQueue<Pair>((x,y)-> x.distance-y.distance);
+        pq.add(new Pair(0,src));
+        while(pq.size()!=0){
+            int top=pq.peek().distance;
+            int node=pq.peek().node;
+            pq.remove();
+            for(int[] it:adj.get(node)){
+                int adjNode=it[0];
+                int edgeWeight=it[1];
+                if(top + edgeWeight<dist[adjNode]){
+                    dist[adjNode]=top+edgeWeight;
+                    pq.add(new Pair(dist[adjNode],adjNode));
+                }
+            }
+        }
+        return dist;
+        
+    }
+}
