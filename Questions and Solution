@@ -355,3 +355,15 @@ class Solution {
     return -1;
 }
 }
+//3512. Minimum Operations to Make Array Sum Divisible by K
+https://leetcode.com/problems/minimum-operations-to-make-array-sum-divisible-by-k
+
+class Solution {
+    public int minOperations(int[] nums, int k) {
+        int sum=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        return sum%k;
+    }
+}
