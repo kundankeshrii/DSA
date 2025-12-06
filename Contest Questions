@@ -160,3 +160,27 @@ class Solution {
     }
     
 }
+//Q4. Minimum Inversion Count in Subarrays of Fixed Length©leetcode
+https://leetcode.com/contest/biweekly-contest-171/problems/minimum-inversion-count-in-subarrays-of-fixed-length/description/
+class Solution {
+    private int countInv(int[] nums,int start,int end){
+        int cnt=0;
+        for(int i=start;i<end;i++){
+            for(int j=i+1;j<=end;j++){
+                if(nums[i]>nums[j]){
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+    public long minInversionCount(int[] nums, int k) {
+        int n=nums.length;
+        int MinInv=Integer.MAX_VALUE;
+        for(int i=0;i<=n-k;i++){
+            int temp=countInv(nums,i,i+k-1);
+            MinInv=Math.min(MinInv,temp);
+        }
+        return MinInv;
+    }
+}
