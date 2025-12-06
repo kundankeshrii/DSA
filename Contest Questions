@@ -136,3 +136,27 @@ class Solution {
         return cnt;
     }
 }
+//Q1. Complete Prime Number©leetcode
+https://leetcode.com/contest/biweekly-contest-171/problems/complete-prime-number/description/
+class Solution {
+    private boolean isPrime(int num) {
+        if (num<2) return false;
+        if (num%2==0) return num==2; 
+        for (int c=3;c*c<=num;c+= 2) {
+            if (num%c== 0) return false; 
+        }
+        return true;
+    }
+    public boolean completePrime(int num) {
+         String str=String.valueOf(num);
+        int n=str.length();
+        if (n==1) return isPrime(num);
+        for (int i=1;i<=n;i++) {
+            int pF=Integer.parseInt(str.substring(0, i));
+            int sF=Integer.parseInt(str.substring(n-i));
+            if (!isPrime(pF) || !isPrime(sF)) return false;
+        }
+        return true;
+    }
+    
+}
