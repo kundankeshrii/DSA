@@ -1307,3 +1307,60 @@ class Solution {
         return dist[n-1][m-1];
     }
 }
+//787. Cheapest Flights Within K Stops
+https://leetcode.com/problems/cheapest-flights-within-k-stops/description/
+class Solution {
+    class Pair{
+        int first;
+        int second;
+        public Pair(int first,int second){
+            this.first=first;
+            this.second=second;
+        }
+    }
+    class tuple{
+        int first;
+        int second;
+        int third;
+        public tuple(int first,int second,int third){
+            this.first=first;
+            this.second=second;
+            this.third=third;
+        }
+    }
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        ArrayList<ArrayList<Pair>>adj=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int[] e: flights){
+           adj.get(e[0]).add(new Pair(e[1], e[2]));
+        }
+        Queue<tuple>q=new LinkedList<>();
+        q.add(new tuple(0,src,0));
+        int dist[]=new int[n];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        dist[src]=0;
+        while(!q.isEmpty()){
+            int stops=q.peek().first;
+            int node=q.peek().second;
+            int cost=q.peek().third;
+            q.remove();
+            if(stops>k) continue;
+            for(Pair it: adj.get(node)){
+                int adjNode=it.first;
+                int eW=it.second;
+                if(cost +eW<dist[adjNode] && stops<=k ){
+                    dist[adjNode]=cost+eW;
+                    q.add(new tuple(stops+1,adjNode,cost+eW));
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(dist[i]==Integer.MAX_VALUE){
+                dist[i]=-1;
+            }
+        }
+        return dist[dst];
+    }
+}
