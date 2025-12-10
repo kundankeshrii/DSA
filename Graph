@@ -1365,6 +1365,7 @@ class Solution {
     }
 }
 //Minimum Multiplications to Reach End
+https://www.geeksforgeeks.org/problems/minimum-multiplications-to-reach-end/0
 class Solution {
     int minimumMultiplications(int[] arr, int start, int end) {
         int mod = 100000;
