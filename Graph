@@ -1365,3 +1365,33 @@ class Solution {
     }
 }
 //Minimum Multiplications to Reach End
+class Solution {
+    int minimumMultiplications(int[] arr, int start, int end) {
+        int mod = 100000;
+        int[] dist = new int[mod];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+
+        dist[start] = 0;
+        Queue<Integer> q = new LinkedList<>();
+        q.add(start);
+
+        while (!q.isEmpty()) {
+            int node = q.poll();
+            int steps = dist[node];
+
+            for (int it : arr) {
+                int next = (node * it) % mod;
+
+                 
+                if (steps + 1 < dist[next]) {
+                    dist[next] = steps + 1;
+
+                    if (next == end) return dist[next];
+
+                    q.add(next);
+                }
+            }
+        }
+        return -1;
+    }
+}
