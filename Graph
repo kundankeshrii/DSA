@@ -1366,13 +1366,17 @@ class Solution {
 }
 //Minimum Multiplications to Reach End
 https://www.geeksforgeeks.org/problems/minimum-multiplications-to-reach-end/0
+import java.util.*;
+
 class Solution {
     int minimumMultiplications(int[] arr, int start, int end) {
         int mod = 100000;
+        if (start == end) return 0;
+
         int[] dist = new int[mod];
         Arrays.fill(dist, Integer.MAX_VALUE);
-
         dist[start] = 0;
+
         Queue<Integer> q = new LinkedList<>();
         q.add(start);
 
@@ -1381,9 +1385,8 @@ class Solution {
             int steps = dist[node];
 
             for (int it : arr) {
-                int next = (node * it) % mod;
+                int next = (int)((1L * node * it) % mod);
 
-                 
                 if (steps + 1 < dist[next]) {
                     dist[next] = steps + 1;
 
