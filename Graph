@@ -1389,9 +1389,7 @@ class Solution {
 
                 if (steps + 1 < dist[next]) {
                     dist[next] = steps + 1;
-
                     if (next == end) return dist[next];
-
                     q.add(next);
                 }
             }
