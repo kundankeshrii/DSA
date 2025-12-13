@@ -184,3 +184,24 @@ class Solution {
         return MinInv;
     }
 }
+//3606. Coupon Code Validator
+https://leetcode.com/problems/coupon-code-validator/description/?envType=daily-question&envId=2025-12-13
+class Solution {
+    public List<String> validateCoupons(String[] code, String[] businessLine, boolean[] isActive) { 
+        int n=code.length;
+        List<String> list=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            boolean a=isActive[i];
+            boolean c=code[i].matches("[A-Za-z0-9_]+");
+            boolean valid=businessLine[i].equals("electronics")|| 
+                businessLine[i].equals("grocery") ||
+                businessLine[i].equals("pharmacy") ||
+                businessLine[i].equals("restaurant");
+            if(a && c && valid) {
+                list.add(code[i]);
+            }
+        }
+        Collections.sort(list);
+        return list;
+    }
+}
