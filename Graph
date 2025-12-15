@@ -1397,3 +1397,69 @@ class Solution {
         return -1;
     }
 }
+//1976. Number of Ways to Arrive at Destination
+https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/
+class Solution {
+    class Pair{
+        long first;
+        int second;
+        public Pair(long dist,int node){
+            this.first=dist;
+            this.second=node;
+
+        }
+
+    }
+    class tuple{
+        int first;
+        int second;
+        public tuple(int first,int second){
+            this.first=first;
+            this.second=second;
+
+        }
+
+    }
+     public int countPaths(int n, int[][] roads) {
+        int mod=(int)(1e9+7);
+        ArrayList<ArrayList<tuple>>adj=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int[] e: roads){
+            int u=e[0];
+            int v=e[1];
+            int w=e[2];
+            adj.get(u).add(new tuple(v,w));
+            adj.get(v).add(new tuple(u,w));
+        }
+        PriorityQueue<Pair>pq=new PriorityQueue<>((x,y)-> Long.compare(x.first, y.first));
+        pq.add(new Pair(0,0));
+        long dist[]=new long[n];
+        int ways[]=new int[n];
+        Arrays.fill(dist,Long.MAX_VALUE);
+        Arrays.fill(ways,0);
+        dist[0]=0;
+        ways[0]=1;
+        while(pq.size()!=0){
+            long top=pq.peek().first;
+            int node=pq.peek().second;
+            pq.remove();
+            if(top > dist[node]) continue;
+            for(tuple it: adj.get(node)){
+                int adjNode=it.first;
+                long eW=it.second;
+                if(top+eW<dist[adjNode]){
+                    dist[adjNode]=top+eW;
+                    pq.add(new Pair(dist[adjNode],adjNode));
+                    ways[adjNode]=ways[node];
+                }
+                else if(top+eW==dist[adjNode]){
+                    ways[adjNode]=(ways[adjNode]+ways[node])%mod;
+                }
+            }
+
+        }
+        return ways[n-1]%mod;
+    }
+}
