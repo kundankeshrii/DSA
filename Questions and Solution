@@ -1,3 +1,42 @@
+//Longest Subarray with Sum K 
+TC-O(N^3)
+class Solution {
+    public int longestSubarray(int[] arr, int k) {
+        int maxLength = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i; j < arr.length; j++) {
+                int sum = 0;
+
+                // sum from i to j
+                for (int m = i; m <= j; m++) {
+                    sum += arr[m];
+                }
+
+                if (sum == k) {
+                    maxLength = Math.max(maxLength, j - i + 1);
+                }
+            }
+        }
+        return maxLength;
+    }
+}
+// M-2 O(N^2)
+class Solution {
+    public int longestSubarray(int[] arr, int k) {
+        int maxLength=0;
+        for(int i=0;i<arr.length;i++){
+            int sum=0;
+            for(int j=i;j<arr.length;j++){
+                sum+=arr[j] ;
+                if(sum==k){
+                maxLength=Math.max(maxLength,j-i+1);
+            }
+            }
+        }
+        return maxLength;
+}
+}
 //1913. Maximum Product Difference Between Two Pairs
 https://leetcode.com/problems/maximum-product-difference-between-two-pairs/description/
 class Solution {
