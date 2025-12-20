@@ -1539,4 +1539,46 @@ https://www.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-alg
         
     }
 }
+//Minimum Spanning Tree
+https://www.geeksforgeeks.org/problems/minimum-spanning-tree/1
+class Pair{
+    int distance;
+    int node;
+    public Pair(int distance,int node){
+        this.distance=distance;
+        this.node=node;
+    }
+}
+class Solution {
+    public int spanningTree(int V, int[][] edges) {
+        ArrayList<ArrayList<Pair>>adj=new ArrayList<>();
+        for(int i=0;i<V;i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int e[]:edges){
+            adj.get(e[0]).add(new Pair(e[2],e[1]));
+            adj.get(e[1]).add(new Pair(e[2],e[0]));
+        }
+        int vis[]=new int[V];
+        PriorityQueue<Pair>pq=new PriorityQueue<>((x,y)->x.distance- y.distance);    
+        pq.add(new Pair(0,0));
+        int sum=0;
+        while(pq.size()>0){
+            int wt=pq.peek().distance;
+            int node=pq.peek().node;
+            pq.remove();
+            if(vis[node]==1) continue;
+            vis[node]=1;
+            sum+=wt;
+            for(Pair it: adj.get(node)){
+                int adjNode=it.node;
+                int eW=it.distance;
+                if(vis[adjNode]==0){
+                    pq.add(new Pair(eW,adjNode));
+                }
+            }
+        }
+        return sum;
+    }
+}
 
